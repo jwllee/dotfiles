@@ -114,8 +114,8 @@ done
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-# Lock the screen (when going AFK)
-alias afk="i3lock -c 000000"
+# # Lock the screen (when going AFK)
+# alias afk="i3lock -c 000000"
 
 # vhosts
 alias hosts='sudo vim /etc/hosts'
@@ -132,8 +132,39 @@ alias mv='mv -i'
 # untar
 alias untar='tar xvf'
 
-# Pipe my public key to my clipboard.
-alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
+# # Pipe my public key to my clipboard.
+# alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
 
-# Pipe my private key to my clipboard.
-alias prikey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
+# # Pipe my private key to my clipboard.
+# alias prikey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
+
+# googler
+alias g='googler -n 3 -c us -l en'
+alias define='googler -n 3 define'
+
+# nnn
+alias ncp='cat ${HOME}/.nnncp'
+alias nnn='nnn -c 3'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias eclipse='${HOME}/eclipse/java-photon/eclipse/eclipse'
