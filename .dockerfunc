@@ -1177,3 +1177,15 @@ yubico_piv_tool(){
 		${DOCKER_REPO_PREFIX}/yubico-piv-tool bash
 }
 alias yubico-piv-tool="yubico_piv_tool"
+anki(){
+	del_stopped anki
+
+	docker run -d \
+		-v /etc/localtime:/etc/localtime:ro \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v $HOME/anki:/data \
+		-e DISPLAY=unix$DISPLAY \
+		--device /dev/snd:/dev/snd \
+		--name anki \
+		anki:latest
+}
