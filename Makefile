@@ -31,6 +31,10 @@ dotfiles: ## Installs the dotfiles.
 	fi;
 	mkdir -p $(HOME)/Pictures;
 	ln -snf $(CURDIR)/origami.png $(HOME)/Pictures/origami.png;
+	mkdir -p $(HOME)/bin;
+	if [ ! -f $(HOME)/bin/dropbox.py ]; then \
+		ln -s $(CURDIR)/dropbox.py $(HOME)/bin/dropbox.py; \
+	fi;
 
 .PHONY: etc
 etc: ## Installs the etc directory files.
