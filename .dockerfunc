@@ -309,7 +309,6 @@ htop(){
 	docker run --rm -it \
 		--pid host \
 		--net none \
-		--name htop \
 		${DOCKER_REPO_PREFIX}/htop
 }
 htpasswd(){
@@ -822,23 +821,23 @@ shorewall(){
 		--name shorewall \
 		${DOCKER_REPO_PREFIX}/shorewall "$@"
 }
-skype(){
-	del_stopped skype
-	relies_on pulseaudio
-
-	docker run -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e "DISPLAY=unix${DISPLAY}" \
-		--link pulseaudio:pulseaudio \
-		-e PULSE_SERVER=pulseaudio \
-		--security-opt seccomp:unconfined \
-		--device /dev/video0 \
-		--group-add video \
-		--group-add audio \
-		--name skype \
-		${DOCKER_REPO_PREFIX}/skype
-}
+# skype(){
+# 	del_stopped skype
+# 	relies_on pulseaudio
+# 
+# 	docker run -d \
+# 		-v /etc/localtime:/etc/localtime:ro \
+# 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+# 		-e "DISPLAY=unix${DISPLAY}" \
+# 		--link pulseaudio:pulseaudio \
+# 		-e PULSE_SERVER=pulseaudio \
+# 		--security-opt seccomp:unconfined \
+# 		--device /dev/video0 \
+# 		--group-add video \
+# 		--group-add audio \
+# 		--name skype \
+# 		${DOCKER_REPO_PREFIX}/skype
+# }
 slack(){
 	del_stopped slack
 
@@ -1177,19 +1176,19 @@ yubico_piv_tool(){
 		${DOCKER_REPO_PREFIX}/yubico-piv-tool bash
 }
 alias yubico-piv-tool="yubico_piv_tool"
-anki(){
-	del_stopped anki
-
-	docker run -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $HOME/anki:/data \
-		-e DISPLAY=unix$DISPLAY \
-		--device /dev/snd:/dev/snd \
-		--name anki \
-		anki:latest
-}
-alias anki="anki"
+# anki(){
+# 	del_stopped anki
+# 
+# 	docker run -d \
+# 		-v /etc/localtime:/etc/localtime:ro \
+# 		-v $HOME/anki:/data \
+# 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+# 		-e DISPLAY=unix$DISPLAY \
+# 		--device /dev/snd:/dev/snd \
+# 		--name anki \
+# 		anki:latest
+# }
+# alias anki="anki"
 plg(){
 	del_stopped plg
 
@@ -1197,8 +1196,7 @@ plg(){
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-v $HOME/plg:/home/plg/data \
-		-e DISPLAY=unix$DISPLAY \
-		--device /dev/snd:/dev/snd \
+		-e DISPLAY \
 		--name plg \
 		plg:latest
 }
@@ -1209,8 +1207,8 @@ prom68(){
 	docker run -P -d \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $HOME/prom68/packages:/home/prom68/prom-6.8/packages \
-		-v $HOME/prom68/data:/root/data \
+		-v $DATA/prom68/packages:/home/prom68/prom-6.8/packages \
+		-v $DATA/prom68/data:/root/data \
 		-e DISPLAY=unix$DISPLAY \
 		--device /dev/snd:/dev/snd \
 		--name prom68 \
@@ -1224,8 +1222,8 @@ prom68pm(){
 	docker run -P -d \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $HOME/prom68/packages:/home/prom68/prom-6.8/packages \
-		-v $HOME/prom68/data:/root/data \
+		-v $DATA/prom68/packages:/home/prom68/prom-6.8/packages \
+		-v $DATA/prom68/data:/root/data \
 		-e DISPLAY=unix$DISPLAY \
 		--device /dev/snd:/dev/snd \
 		--name prom68pm \
@@ -1239,10 +1237,11 @@ woped(){
 	docker run -d \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $HOME/woped:/data \
+		-v $HOME/woped:/home/woped/data \
 		-e DISPLAY=unix$DISPLAY \
 		--device /dev/snd:/dev/snd \
 		--name woped \
 		woped:latest
 }
 alias woped="woped"
+alias yt="docker run --rm -v $PWD:/data youtube-dl:latest"

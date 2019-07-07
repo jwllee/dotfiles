@@ -169,7 +169,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # alias eclipse='${HOME}/eclipse/java-photon/eclipse/eclipse'
 
-alias docker='sudo docker'
+# alias docker='sudo docker'
 # dropbox
 chmod +x ${HOME}/dotfiles/dropbox.py
 alias dropbox='${HOME}/bin/dropbox.py'
