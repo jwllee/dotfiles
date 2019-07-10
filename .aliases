@@ -173,3 +173,5 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # dropbox
 chmod +x ${HOME}/dotfiles/dropbox.py
 alias dropbox='${HOME}/bin/dropbox.py'
+export DATA=/mnt/data
+export DROPBOX=/mnt/data/Dropbox
