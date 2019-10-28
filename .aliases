@@ -173,4 +173,4 @@ alias dropbox='${HOME}/bin/dropbox.py'
 export DATA=/mnt/data
 export DROPBOX=/mnt/data/Dropbox
 
-alias chmod-dir='sudo chmod -R 755 .'
+alias chmod-dir='sudo chmod -R 755 '
