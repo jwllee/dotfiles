@@ -142,10 +142,6 @@ alias untar='tar xvf'
 alias g='googler -n 3 -c us -l en'
 alias define='googler -n 3 define'
 
-# nnn
-alias ncp='cat ${HOME}/.nnncp'
-alias nnn='nnn -c 3'
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -175,3 +171,64 @@ export DROPBOX=/mnt/data/Dropbox
 
 alias chmod-dir='sudo chmod -R 755 '
 alias chown-dir='sudo chown ${USER} -R '
+
+# nnn file explorer
+alias ncp='cat ${HOME}/.nnncp'
+alias nnn='nnn -c 3'
+
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, export NNN_TMPFILE after the call to nnn
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+
+    nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
+# clean latex
+latex-clean ()
+{
+	echo "Removing generated files for $1.tex"
+
+	LOG_FILE="$1.log"
+	PDF_FILE="$1.pdf"
+	OUT_FILE="$1.out"
+	AUX_FILE="$1.aux"
+	SYNCTEX_ZIP="$1.synctex.gz"
+
+	if [ -f "$LOG_FILE" ]; then
+		rm $LOG_FILE
+	fi
+
+	if [ -f "$PDF_FILE" ]; then
+		rm $PDF_FILE
+	fi
+
+	if [ -f "$OUT_FILE" ]; then
+		rm $OUT_FILE
+	fi
+
+	if [ -f "$AUX_FILE" ]; then
+		rm $AUX_FILE
+	fi
+
+	if [ -f "$SYNCTEX_ZIP" ]; then
+		rm $SYNCTEX_ZIP
+	fi
+}
