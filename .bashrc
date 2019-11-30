@@ -185,3 +185,4 @@ fi
 
 # elinks as browser
 export BROWSER=elinks
+
