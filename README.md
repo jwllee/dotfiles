@@ -1,37 +1,27 @@
-# dotfiles
+# dotfiles for mac
 
-[![Travis CI](https://img.shields.io/travis/jessfraz/dotfiles.svg?style=for-the-badge)](https://travis-ci.org/jessfraz/dotfiles)
-
-**Table of Contents**
-
-<!-- toc -->
-
+** Table of content **
 - [About](#about)
-  * [Installing](#installing)
-  * [Customizing](#customizing)
+    * [Installing](#installing)
+    * [Customizing](#customizing)
 - [Resources](#resources)
-  * [`.vim`](#vim)
-- [Contributing](#contributing)
-  * [Running the tests](#running-the-tests)
-
-<!-- tocstop -->
+    * [.vim](#vim)
 
 ## About
-
 ### Installing
+Assumption:
+- Using zsh rather than bash
+Prerequsite:
+- Install [Homebrew](https://brew.sh)
 
 ```console
 $ make
 ```
-
 This will create symlinks from this repo to your home folder.
 
 ### Customizing
-
-Save env vars, etc in a `.extra` file, that looks something like
-this:
-
-```bash
+Save env vars, etc in a `.extra` file, that looks something like this:
+```zsh
 ###
 ### Git credentials
 ###
@@ -56,17 +46,5 @@ export GMAIL_FROM=from-email@you.com
 ## Resources
 
 ### `.vim`
-
 For my `.vimrc` and `.vim` dotfiles see
-[github.com/jessfraz/.vim](https://github.com/jessfraz/.vim).
-
-## Contributing
-
-### Running the tests
-
-The tests use [shellcheck](https://github.com/koalaman/shellcheck). You don't
-need to install anything. They run in a container.
-
-```console
-$ make test
-```
+[github.com/jwllee/.vim](https://github.com/jwllee/.vim).

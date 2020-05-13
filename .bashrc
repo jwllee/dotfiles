@@ -238,3 +238,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems" 
+export PATH="$HOME/gems/bin:$PATH"
+
+# export julia if the directory exists
+if [[ -d "/home/jwllee/julia-1.0.5" ]]; then
+	echo "Adding julia to path"
+	export PATH="/home/jwllee/julia-1.0.5/bin:$PATH"
+fi
