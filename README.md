@@ -13,8 +13,14 @@ Assumption:
 - Using zsh rather than bash
 Prerequsite:
 - Install [Homebrew](https://brew.sh)
+- Install gpg and pinentry-mac
 
 ```console
+$ brew install pinentry-mac
+$ brew install gnupg2
+# Check out [this stackoverflow](https://stackoverflow.com/questions/41502146/git-gpg-onto-mac-osx-error-gpg-failed-to-sign-the-data/41506446)
+# for why the below enables gpg sign for git
+$ echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 $ make
 ```
 This will create symlinks from this repo to your home folder.
