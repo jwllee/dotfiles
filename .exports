@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Make nvim the default editor
+export EDITOR=/usr/local/bin/nvim
