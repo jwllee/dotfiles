@@ -38,3 +38,8 @@ export MANPAGER="less -X";
 # 	GPG_TTY=$(tty)
 # 	export GPG_TTY
 # fi
+
+# export julia if exist
+if [ -d $HOME/julia-1.0.5/bin ]; then
+	export PATH="$HOME/julia-1.0.5/bin:$PATH";
+fi
