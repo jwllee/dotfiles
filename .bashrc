@@ -183,58 +183,5 @@ fi
 #   eval "$(pyenv virtualenv-init -)"
 # fi
 
-# elinks as browser
-export BROWSER=elinks
 
-
-# nnn file explorer
-export NNN_TMPFILE="/tmp/nnn"
-export EDITOR=/usr/bin/vim
-export VISUAL=/usr/bin/vim
-xdg-mime default vim.desktop text/plain
-
-
-n ()
-{
-    # Block nesting of nnn in subshells
-    if [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-
-    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # To cd on quit only on ^G, export NNN_TMPFILE after the call to nnn
-    # export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-
-    nnn "$@" 
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
-
-# helps programs know where's python, for example jedi-vim needs python package
-# jedi which can be found at the python site-packages stated here
-export PYTHONPATH=$PYTHONPATH:"/home/jwllee/anaconda3/lib/python3.7/site-packages"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jwllee/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/jwllee/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jwllee/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/jwllee/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
