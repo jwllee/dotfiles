@@ -21,16 +21,17 @@ dotfiles: ## Installs the dotfiles.
 	# ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
 	git update-index --skip-worktree $(CURDIR)/.gitconfig;
-	mkdir -p $(HOME)/.config;
-	# ln -snf $(CURDIR)/.i3 $(HOME)/.config/sway;
 	mkdir -p $(HOME)/.local/share;
 	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
 	ln -snf $(CURDIR)/.bash_profile $(HOME)/.profile;
 	if [ -f /usr/local/bin/pinentry ]; then \
 		sudo ln -snf /usr/bin/pinentry /usr/local/bin/pinentry; \
 	fi;
-	mkdir -p $(HOME)/Pictures;
-	ln -snf $(CURDIR)/origami.png $(HOME)/Pictures/origami.png;
+	if [ ! -d $(HOME)/Pictures ]; then \
+		mkdir -p $(HOME)/Pictures; \
+	fi;
+	ln -snf $(CURDIR)/desktop.png $(HOME)/Pictures/desktop.png;
+	# dropbox script
 	mkdir -p $(HOME)/bin;
 	if [ ! -f $(HOME)/bin/dropbox.py ]; then \
 		ln -s $(CURDIR)/dropbox.py $(HOME)/bin/dropbox.py; \
