@@ -41,39 +41,39 @@ relies_on(){
 		fi
 	done
 }
-# creates an nginx config for a local route
-nginx_config(){
-	server=$1
-	route=$2
-
-	cat >"${HOME}/.nginx/conf.d/${server}.conf" <<-EOF
-	upstream ${server} { server ${route}; }
-	server {
-	server_name ${server};
-
-	location / {
-	proxy_pass  http://${server};
-	proxy_http_version 1.1;
-	proxy_set_header Upgrade \$http_upgrade;
-	proxy_set_header Connection "upgrade";
-	proxy_set_header Host \$http_host;
-	proxy_set_header X-Forwarded-Proto \$scheme;
-	proxy_set_header X-Forwarded-For \$remote_addr;
-	proxy_set_header X-Forwarded-Port \$server_port;
-	proxy_set_header X-Request-Start \$msec;
-}
-	}
-	EOF
-
-	# restart nginx
-	docker restart nginx
-
-	# add host to /etc/hosts
-	hostess add "$server" 127.0.0.1
-
-	# open browser
-	browser-exec "http://${server}"
-}
+# # creates an nginx config for a local route
+# nginx_config(){
+# 	server=$1
+# 	route=$2
+# 
+# 	cat >"${HOME}/.nginx/conf.d/${server}.conf" <<-EOF
+# 	upstream ${server} { server ${route}; }
+# 	server {
+# 	server_name ${server};
+# 
+# 	location / {
+# 	proxy_pass  http://${server};
+# 	proxy_http_version 1.1;
+# 	proxy_set_header Upgrade \$http_upgrade;
+# 	proxy_set_header Connection "upgrade";
+# 	proxy_set_header Host \$http_host;
+# 	proxy_set_header X-Forwarded-Proto \$scheme;
+# 	proxy_set_header X-Forwarded-For \$remote_addr;
+# 	proxy_set_header X-Forwarded-Port \$server_port;
+# 	proxy_set_header X-Request-Start \$msec;
+# }
+# 	}
+# 	EOF
+# 
+# 	# restart nginx
+# 	docker restart nginx
+# 
+# 	# add host to /etc/hosts
+# 	hostess add "$server" 127.0.0.1
+# 
+# 	# open browser
+# 	browser-exec "http://${server}"
+# }
 
 #
 # Container Aliases
@@ -1189,59 +1189,56 @@ alias yubico-piv-tool="yubico_piv_tool"
 # 		anki:latest
 # }
 # alias anki="anki"
-plg(){
-	del_stopped plg
-
-	docker run -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $HOME/plg:/home/plg/data \
-		-e DISPLAY \
-		--name plg \
-		plg:latest
-}
-alias plg="plg"
-prom68(){
-	del_stopped prom68
-
-	docker run -P -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $DATA/prom68/packages:/home/prom68/prom-6.8/packages \
-		-v $DATA/prom68/data:/root/data \
-		-e DISPLAY=unix$DISPLAY \
-		--device /dev/snd:/dev/snd \
-		--name prom68 \
-		prom68:latest \
-		/bin/sh -c 'cd $HOME/prom-6.8; ./ProM68.sh;'
-}
-alias prom68="prom68"
-prom68pm(){
-	del_stopped prom68pm
-
-	docker run -P -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $DATA/prom68/packages:/home/prom68/prom-6.8/packages \
-		-v $DATA/prom68/data:/root/data \
-		-e DISPLAY=unix$DISPLAY \
-		--device /dev/snd:/dev/snd \
-		--name prom68pm \
-		prom68:latest \
-		/bin/sh -c 'cd $HOME/prom-6.8; ./ProMPM68.sh;'
-}
-alias prom68pm="prom68pm"
-woped(){
-	del_stopped woped
-
-	docker run -d \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v $HOME/woped:/home/woped/data \
-		-e DISPLAY=unix$DISPLAY \
-		--device /dev/snd:/dev/snd \
-		--name woped \
-		woped:latest
-}
-alias woped="woped"
-alias yt="docker run --rm -v $PWD:/data youtube-dl:latest"
+# plg(){
+# 	del_stopped plg
+# 
+# 	docker run -d \
+# 		-v /etc/localtime:/etc/localtime:ro \
+# 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+# 		-v $HOME/plg:/home/plg/data \
+# 		-e DISPLAY \
+# 		--name plg \
+# 		plg:latest
+# }
+# alias plg="plg"
+# prom68(){
+# 	del_stopped prom68
+# 
+# 	docker run -P -d \
+# 		-v /etc/localtime:/etc/localtime:ro \
+# 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+# 		-v $DATA/prom68/packages:/home/prom68/prom-6.8/packages \
+# 		-v $DATA/prom68/data:/root/data \
+# 		-e DISPLAY=unix$DISPLAY \
+# 		--device /dev/snd:/dev/snd \
+# 		--name prom68 \
+# 		prom68:latest \
+# 		/bin/sh -c 'cd $HOME/prom-6.8; ./ProM68.sh;'
+# }
+# alias prom68="prom68"
+# prom68pm(){
+# 	del_stopped prom68pm
+# 
+# 	docker run -P -d \
+# 		-v /etc/localtime:/etc/localtime:ro \
+# 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+# 		-v $DATA/prom68/packages:/home/prom68/prom-6.8/packages \
+# 		-v $DATA/prom68/data:/root/data \
+# 		-e DISPLAY=unix$DISPLAY \
+# 		--device /dev/snd:/dev/snd \
+# 		--name prom68pm \
+# 		prom68:latest \ # 		/bin/sh -c 'cd $HOME/prom-6.8; ./ProMPM68.sh;' # }
+# alias prom68pm="prom68pm"
+# woped () {
+# 	del_stopped woped
+# 	docker run -d \
+# 		-v /etc/localtime:/etc/localtime:ro \
+# 		-v /tmp/.X11-unix:/tmp/.X11-unix \
+# 		-v $HOME/woped:/home/woped/data \
+# 		-e DISPLAY=unix$DISPLAY \
+# 		--device /dev/snd:/dev/snd \
+# 		--name woped \
+# 		woped:latest
+# }
+# alias woped="woped"
+# alias yt="docker run --rm -v $PWD:/data youtube-dl:latest"
