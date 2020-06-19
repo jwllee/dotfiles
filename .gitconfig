@@ -189,3 +189,6 @@
 
 [commit]
 	gpgsign = true
+[user]
+	email = jonathan.wailam.lee@gmail.com
+	name = jwllee
