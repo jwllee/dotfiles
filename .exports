@@ -2,3 +2,7 @@
 
 # Make nvim the default editor
 export EDITOR=/usr/local/bin/nvim
+
+export PATH="$PATH:/usr/local/bin/"
+export PATH="$PATH:/usr/local/sbin/"
+export PATH="$PATH:/Users/jwllee/bin/flutter/bin"
